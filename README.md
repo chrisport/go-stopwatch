@@ -7,7 +7,7 @@ Simple timer to measure elapsed time. Very useful for quick debugging and
 
 ### Usage:
 Start new timer, get elapsed time after doing stuff and restart timer
-```
+```golang
 timer := timer.NewAndStart()
 
 // do stuff
@@ -16,7 +16,7 @@ elapsedNanos := timer.GetAndRestart()
 ```
 
 #### GetAndContinue
-```
+```golang
 timer := timer.NewAndStart()
 
 // do stuff for 5 nanoseconds
@@ -29,7 +29,7 @@ elapsedNanosTotally := timer.GetAndContinue() // =  5 + 11 = 16ns
 ```
 
 #### GetAndRestart
-```
+```golang
 timer := timer.NewAndStart()
 
 // do stuff for 5 nanoseconds
@@ -42,7 +42,7 @@ elapsedNanosTotally := timer.GetAndRestart() // = 11ns
 ```
 
 #### Print to console
-```
+```golang
 timer := timer.NewAndStart()
 
 // do stuff called StuffThatMustBeDone
@@ -55,4 +55,3 @@ Output:
 
 ### TODO
 - adjustable precision (ns, ms, s, ...)
-
