@@ -1,4 +1,4 @@
-package timer
+package stopwatch
 
 import (
 	"fmt"
@@ -32,22 +32,22 @@ func (t *Stopwatch) Restart() {
 	t.lastCheckpoint = timeNow()
 }
 
-// Start starts the timer, if it has already been started, the timer will restart
+// Sets the accuracy of the Log output
 func (t *Stopwatch) SetAccuracy(accuracy time.Duration) {
 	t.accuracyFactor = accuracy
 }
 
-// LogAndRestart logs the elapsed time since last start and restarts the timer
+// GetAndRestart calculates the elapsed time since last start and returns it as duration. The timer will restart.
 func (t *Stopwatch) GetAndRestart() time.Duration {
 	elapsed := timeNow().Sub(t.lastCheckpoint)
-	t.lastCheckpoint = timeNow()
-	return elapsed / t.accuracyFactor * t.accuracyFactor
+	t.Restart()
+	return elapsed
 }
 
-//LogAndContinue logs the elapsed time since last start. The timer will continue.
+// GetAndContinue calculates the elapsed time since last start and returns it as duration. The timer will continue.
 func (t *Stopwatch) GetAndContinue() time.Duration {
 	elapsed := timeNow().Sub(t.lastCheckpoint)
-	return elapsed / t.accuracyFactor * t.accuracyFactor
+	return elapsed
 }
 
 // LogAndRestart logs the elapsed time since last start and restarts the timer
