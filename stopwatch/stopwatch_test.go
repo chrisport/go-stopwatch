@@ -28,19 +28,19 @@ func TestStopwatch(t *testing.T) {
 
 			stopwatchUnderTest.Restart()
 			currentTimeInTest = currentTimeInTest.Add(5 * time.Nanosecond)
-			measuredTimeAfter5 := stopwatchUnderTest.GetAndContinue()
+			measuredTimeAfter5 := stopwatchUnderTest.Get()
 
 			So(measuredTimeAfter5, ShouldEqual, 5*time.Nanosecond)
 		})
 
-		Convey("It should first return 3, then 5 when GetAndContinue is called after 3 and then after 2 nanoseconds", func() {
+		Convey("It should first return 3, then 5 when Get is called after 3 and then after 2 nanoseconds", func() {
 			stopwatchUnderTest := NewStopwatch()
 
 			stopwatchUnderTest.Restart()
 			currentTimeInTest = currentTimeInTest.Add(2 * time.Nanosecond)
-			measuredTimeAfter2 := stopwatchUnderTest.GetAndContinue()
+			measuredTimeAfter2 := stopwatchUnderTest.Get()
 			currentTimeInTest = currentTimeInTest.Add(3 * time.Nanosecond)
-			measuredTimeAfter2Plus3 := stopwatchUnderTest.GetAndContinue()
+			measuredTimeAfter2Plus3 := stopwatchUnderTest.Get()
 
 			So(measuredTimeAfter2, ShouldEqual, 2)
 			So(measuredTimeAfter2Plus3, ShouldEqual, 5*time.Nanosecond)
@@ -91,7 +91,7 @@ func TestStopwatch(t *testing.T) {
 		Convey("Todo: check for printed lines on console", func() {
 			stopwatchUnderTest := NewStopwatch()
 
-			stopwatchUnderTest.LogAndContinue("Step 1")
+			stopwatchUnderTest.Log("Step 1")
 			//stopwatchUnderTest.LogAndRestart("Step 2")
 
 		})
@@ -106,10 +106,10 @@ func BenchmarkGetAndRestart(b *testing.B) {
 	}
 }
 
-func BenchmarkGetAndContinue(b *testing.B) {
+func BenchmarkGet(b *testing.B) {
 	stopwatch := NewStopwatch()
 	for n := 0; n < b.N; n++ {
-		stopwatch.GetAndContinue()
+		stopwatch.Get()
 	}
 }
 

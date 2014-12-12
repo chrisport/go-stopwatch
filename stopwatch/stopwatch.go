@@ -73,7 +73,7 @@ func (t *Stopwatch) LogAndRestart(markerMessage string) {
 
 // LogAndContinue logs the elapsed time since last start. The timer will continue.
 func (t *Stopwatch) Log(markerMessage string) {
-	fmt.Printf("\n[Stopwatch] %v for %s", t.GetAndContinue(), markerMessage)
+	fmt.Printf("\n[Stopwatch] %v for %s", t.Get(), markerMessage)
 }
 
 var timeNow = func() time.Time {
