@@ -1,36 +1,41 @@
 [![Build Status](https://drone.io/github.com/chrisport/go-stopwatch/status.png)](https://drone.io/github.com/chrisport/go-stopwatch/latest)
 
-Outdated readme, will be updated within 2 days. See tests for usage examples.
 
-stopwatch
+Stopwatch
 ==========
 
-Simple stopwatch to measure elapsed time. Very useful for quick debugging and
+Simple stopwatch to measure elapsed time. Very useful for quick debugging.
 
 ### Usage:
 Start new stopwatch, get elapsed time after doing stuff and restart stopwatch
+
 ```go
 stopwatch := stopwatch.Stopwatch()
 
-// do stuffg
+// do stuff
 
-elapsedNanos := stopwatch.GetAndRestart()
+elapsedNanos := stopwatch.Get()
 ```
 
-#### GetAndContinue
+### Time elapsed
+#### Get
+Get returns the elapsed time as time.Duration.
+
 ```go
 stopwatch := stopwatch.NewStopwatch()
 
 // do stuff for 5 nanoseconds
 
-elapsedNanos := stopwatch.GetAndContinue() // = 5ns
+elapsedNanos := stopwatch.Get() // = 5ns
 
 // do more stuff for 11 nanoseconds
 
-elapsedNanosTotally := stopwatch.GetAndContinue() // =  5 + 11 = 16ns
+elapsedNanosTotally := stopwatch.Get() // =  5 + 11 = 16ns
 ```
 
 #### GetAndRestart
+Get and restart returns the elapsed time as time.Duration and restarts the stopwatch.
+
 ```go
 stopwatch := stopwatch.NewStopwatch()
 
@@ -43,36 +48,37 @@ elapsedNanos := stopwatch.GetAndRestart() // = 5ns
 elapsedNanosTotally := stopwatch.GetAndRestart() // = 11ns
 ```
 
-#### Print to console
+### Print to console
+#### Log & LogAndRestart
+Log and LogAndRestart do same as Get, but print the result to console, together with a marker message. Sample console output:
+
 ```go
-stopwatch := stopwatch.NewStopwatch()
-
-// do stuff called StuffThatMustBeDone for 220 nanoseconds
-
-stopwatch.LogAndContinue("Stuff that must be done")
-
-Output:
-    [Stopwatch] 220 ns for Stuff that must be done
+[Stopwatch] 220 ns for Stuff that must be done
 ```
 
 #### Adjust accuracy
+Accuracy for console log can be adjusted.
+
 ```go
 stopwatch := stopwatch.NewStopwatchWithAccuracy(time.Milliseconds)
 
 // do stuff called StuffThatMustBeDone for 500 ms
 
-stopwatch.LogAndContinue("Stuff that must be done")
+stopwatch.Log("Stuff that must be done")
 
 Output:
-    [Stopwatch] 500 for Stuff that must be done
+    [Stopwatch] 500 ms for Stuff that must be done
 ```
 
-### GetPrecise
-Get precise calculates the time directly on the int representing the nanoseconds. Benchmark on MacBook Pro shows a
+### GetPrecise - when nanoseconds matter
+GetPrecise and GetPreciseAndRestart calculate the time directly on the int representing the nanoseconds. Benchmark on MacBook 2,6 GHz Intel Core i5 shows a
 time advantage of about 27% when restarting stopwatch and 47% otherwise:
-```golang
-BenchmarkGetAndRestart  50000000                47.3 ns/op
-BenchmarkGetAndContinue 50000000                32.5 ns/op
-BenchmarkGetPrecise     100000000               17.2 ns/op
+
+```go
+BenchmarkGet                    50000000                32.5 ns/op
+BenchmarkGetPrecise             100000000               17.2 ns/op
+
+BenchmarkGetAndRestart          50000000                47.3 ns/op
 BenchmarkGetPreciseAndRestart   50000000                34.3 ns/op
+
 ```
