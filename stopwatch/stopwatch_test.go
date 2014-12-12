@@ -88,6 +88,14 @@ func TestStopwatch(t *testing.T) {
 			So(measuredTime, ShouldBeBetween, 95*factor, 105*factor)
 		})
 
+		Convey("Todo: check for printed lines on console", func() {
+			stopwatchUnderTest := NewStopwatch()
+
+			stopwatchUnderTest.LogAndContinue("Step 1")
+			//stopwatchUnderTest.LogAndRestart("Step 2")
+
+		})
+
 	})
 }
 
@@ -102,5 +110,19 @@ func BenchmarkGetAndContinue(b *testing.B) {
 	stopwatch := NewStopwatch()
 	for n := 0; n < b.N; n++ {
 		stopwatch.GetAndContinue()
+	}
+}
+
+func BenchmarkGetPrecise(b *testing.B) {
+	stopwatch := NewStopwatch()
+	for n := 0; n < b.N; n++ {
+		stopwatch.GetPrecise()
+	}
+}
+
+func BenchmarkGetPreciseAndRestart(b *testing.B) {
+	stopwatch := NewStopwatch()
+	for n := 0; n < b.N; n++ {
+		stopwatch.GetPreciseAndRestart()
 	}
 }

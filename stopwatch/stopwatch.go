@@ -7,8 +7,9 @@ import (
 
 // Stopwatch is a simple timer that prints elapsed time to console or returns it as nanoseconds
 type Stopwatch struct {
-	lastCheckpoint time.Time
-	accuracyFactor time.Duration
+	lastCheckpoint     time.Time
+	lastCheckpointPrec int64
+	accuracyFactor     time.Duration
 }
 
 // NewStopwatchAndStart returns a new timer and starts it immediately.
@@ -45,8 +46,23 @@ func (t *Stopwatch) GetAndRestart() time.Duration {
 }
 
 // GetAndContinue calculates the elapsed time since last start and returns it as duration. The timer will continue.
-func (t *Stopwatch) GetAndContinue() time.Duration {
+func (t *Stopwatch) Get() time.Duration {
 	elapsed := timeNow().Sub(t.lastCheckpoint)
+	return elapsed
+}
+
+// GetPrecise returns the elapsed time in nanoseconds.
+// Compared to GetAndContinue it saves calculation time (in range of 10-30 nanoseconds)
+func (t *Stopwatch) GetPrecise() int {
+	elapsed := timeNow().Nanosecond() - t.lastCheckpoint.Nanosecond()
+	return elapsed
+}
+
+// GetPreciseAndRestart returns the elapsed time in nanoseconds.
+// Compared to GetandRestart it saves calculation time (in range of 10-30 nanoseconds)
+func (t *Stopwatch) GetPreciseAndRestart() int {
+	elapsed := timeNow().Nanosecond() - t.lastCheckpoint.Nanosecond()
+	t.lastCheckpoint = timeNow()
 	return elapsed
 }
 
@@ -56,7 +72,7 @@ func (t *Stopwatch) LogAndRestart(markerMessage string) {
 }
 
 // LogAndContinue logs the elapsed time since last start. The timer will continue.
-func (t *Stopwatch) LogAndContinue(markerMessage string) {
+func (t *Stopwatch) Log(markerMessage string) {
 	fmt.Printf("\n[Stopwatch] %v for %s", t.GetAndContinue(), markerMessage)
 }
 
