@@ -1,4 +1,4 @@
-[![Build Status](https://drone.io/github.com/chrisport/go-stopwatch/status.png)](https://drone.io/github.com/chrisport/go-stopwatch/latest)
+[![Build Status](https://drone.io/github.com/chrisport/go-timer/status.png)](https://drone.io/github.com/chrisport/go-timer/latest)
 
 
 Stopwatch
@@ -6,7 +6,7 @@ Stopwatch
 
 Simple stopwatch to measure elapsed time. Very useful for quick debugging.
 
-### Usage:
+#### Basic Usage:
 Start new stopwatch, get elapsed time after doing stuff and restart stopwatch
 
 ```go
@@ -14,10 +14,10 @@ stopwatch := stopwatch.Stopwatch()
 
 // do stuff
 
-elapsedNanos := stopwatch.Get()
+elapsed := stopwatch.Get()
 ```
 
-### Time elapsed
+## Get time elapsed
 #### Get
 Get returns the elapsed time as time.Duration.
 
@@ -26,11 +26,11 @@ stopwatch := stopwatch.NewStopwatch()
 
 // do stuff for 5 nanoseconds
 
-elapsedNanos := stopwatch.Get() // = 5ns
+elapsed := stopwatch.Get() // = 5ns
 
 // do more stuff for 11 nanoseconds
 
-elapsedNanosTotally := stopwatch.Get() // =  5 + 11 = 16ns
+elapsedInTotal := stopwatch.Get() // =  5 + 11 = 16ns
 ```
 
 #### GetAndRestart
@@ -41,14 +41,14 @@ stopwatch := stopwatch.NewStopwatch()
 
 // do stuff for 5 nanoseconds
 
-elapsedNanos := stopwatch.GetAndRestart() // = 5ns
+elapsed := stopwatch.GetAndRestart() // = 5ns
 
 // do more stuff for 11 nanoseconds
 
-elapsedNanosTotally := stopwatch.GetAndRestart() // = 11ns
+elapsed2 := stopwatch.GetAndRestart() // = 11ns
 ```
 
-### Print to console
+## Print to console
 #### Log & LogAndRestart
 Log and LogAndRestart do same as Get, but print the result to console, together with a marker message. Sample console output:
 
@@ -70,7 +70,7 @@ Output:
     [Stopwatch] 500 ms for Stuff that must be done
 ```
 
-### GetPrecise - when nanoseconds matter
+## GetPrecise - when nanoseconds matter
 GetPrecise and GetPreciseAndRestart calculate the time directly on the int representing the nanoseconds. Benchmark on MacBook 2,6 GHz Intel Core i5 shows a
 time advantage of about 27% when restarting stopwatch and 47% otherwise:
 
