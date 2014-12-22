@@ -87,16 +87,26 @@ func TestStopwatch(t *testing.T) {
 			factor := 1000000
 			So(measuredTime, ShouldBeBetween, 95*factor, 105*factor)
 		})
-
-		Convey("Todo: check for printed lines on console", func() {
-			stopwatchUnderTest := NewStopwatch()
-
-			stopwatchUnderTest.Log("Step 1")
-			//stopwatchUnderTest.LogAndRestart("Step 2")
-
-		})
-
 	})
+}
+
+func ExampleSalutations() {
+	currentTimeInTest := time.Now()
+	timeNowOriginal := timeNow
+	timeNow = func() time.Time {
+		return currentTimeInTest
+	}
+
+	stopwatch := NewStopwatchWithAccuracy(time.Second)
+	stopwatch.Restart()
+	currentTimeInTest = currentTimeInTest.Add(time.Hour * 1)
+
+	stopwatch.Log("Marker")
+
+	timeNow = timeNowOriginal
+
+	// Output:
+	// [Stopwatch] 3600 for Marker
 }
 
 func BenchmarkGetAndRestart(b *testing.B) {
@@ -124,5 +134,19 @@ func BenchmarkGetPreciseAndRestart(b *testing.B) {
 	stopwatch := NewStopwatch()
 	for n := 0; n < b.N; n++ {
 		stopwatch.GetPreciseAndRestart()
+	}
+}
+
+func BenchmarkLog(b *testing.B) {
+	stopwatch := NewStopwatch()
+	for n := 0; n < b.N; n++ {
+		stopwatch.performanceLog("Marker")
+	}
+}
+
+func BenchmarkLogAndrestart(b *testing.B) {
+	stopwatch := NewStopwatch()
+	for n := 0; n < b.N; n++ {
+		stopwatch.performanceLogAndRestart("Marker")
 	}
 }

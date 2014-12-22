@@ -68,12 +68,22 @@ func (t *Stopwatch) GetPreciseAndRestart() int {
 
 // LogAndRestart logs the elapsed time since last start and restarts the timer
 func (t *Stopwatch) LogAndRestart(markerMessage string) {
-	fmt.Printf("\n[Stopwatch] %v for %s", t.GetAndRestart(), markerMessage)
+	fmt.Printf("\n[Stopwatch] %v for %s", (t.GetAndRestart() / t.accuracyFactor).Nanoseconds(), markerMessage)
 }
 
 // LogAndContinue logs the elapsed time since last start. The timer will continue.
 func (t *Stopwatch) Log(markerMessage string) {
-	fmt.Printf("\n[Stopwatch] %v for %s", t.Get(), markerMessage)
+	fmt.Printf("\n[Stopwatch] %v for %s", (t.Get() / t.accuracyFactor).Nanoseconds(), markerMessage)
+}
+
+// LogAndRestart logs the elapsed time since last start and restarts the timer
+func (t *Stopwatch) performanceLogAndRestart(markerMessage string) {
+	fmt.Sprintf("\n[Stopwatch] %v for %s", (t.GetAndRestart() / t.accuracyFactor).Nanoseconds(), markerMessage)
+}
+
+// LogAndContinue logs the elapsed time since last start. The timer will continue.
+func (t *Stopwatch) performanceLog(markerMessage string) {
+	fmt.Sprintf("\n[Stopwatch] %v for %s", (t.Get() / t.accuracyFactor).Nanoseconds(), markerMessage)
 }
 
 var timeNow = func() time.Time {
