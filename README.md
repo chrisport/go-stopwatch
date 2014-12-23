@@ -1,3 +1,4 @@
+[![Coverage Status](https://coveralls.io/repos/chrisport/go-stopwatch/badge.png)](https://coveralls.io/r/chrisport/go-stopwatch)
 [![Build Status](https://drone.io/github.com/chrisport/go-timer/status.png)](https://drone.io/github.com/chrisport/go-timer/latest)
 [![Coverage Status](https://img.shields.io/coveralls/chrisport/go-stopwatch.svg)](https://coveralls.io/r/chrisport/go-stopwatch)
 
