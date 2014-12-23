@@ -1,4 +1,5 @@
 [![Build Status](https://drone.io/github.com/chrisport/go-stopwatch/status.png)](https://drone.io/github.com/chrisport/go-stopwatch/latest)
+[![wercker status](https://app.wercker.com/status/ca72921e166f829d41bd0ed42f25d99b/m/master "wercker status")](https://app.wercker.com/project/bykey/ca72921e166f829d41bd0ed42f25d99b)
 
 Stopwatch
 ==========
