@@ -1,6 +1,5 @@
 [![Build Status](https://drone.io/github.com/chrisport/go-timer/status.png)](https://drone.io/github.com/chrisport/go-timer/latest)
-https://drone.io/github.com/chrisport/go-timer/cover.md
-[![Build Status](https://drone.io/github.com/chrisport/go-timer/cover.md)](https://drone.io/github.com/chrisport/go-timer/latest)
+[![Coverage Status](https://img.shields.io/coveralls/chrisport/go-stopwatch.svg)](https://coveralls.io/r/chrisport/go-stopwatch)
 
 Stopwatch
 ==========
